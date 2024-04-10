@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Domain.Entity;
@@ -36,7 +37,18 @@ namespace Infrastructure.Repository.Repositories
 
         }
 
-         public async Task<Categoria> GetCategoriasAsyncById(Guid CategoriaId)
+        public async Task<List<Categoria>> GetCategoriasAsyncById(List<Guid> IdsCategoria)
+        {
+            IQueryable<Categoria> query = _dataContext.Categorias;
+
+            query = query.AsNoTracking()
+                         .Where(categoria => IdsCategoria.Contains(categoria.Id))
+                         .OrderBy(categoria => categoria.Id);
+
+            return await query.ToListAsync();
+        }
+
+        public async Task<Categoria> GetCategoriaAsyncById(Guid CategoriaId)
         {
             IQueryable<Categoria> query = _dataContext.Categorias;
 

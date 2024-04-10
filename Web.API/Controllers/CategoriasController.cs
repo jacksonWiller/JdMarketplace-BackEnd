@@ -74,10 +74,8 @@ namespace Web.API.Controllers
         {
             try
             {
-                // Produto produto;
                 var retorno = await _categoriaService.AddCategoria(model);
-               
-                return Ok(retorno);
+                return Ok(model);
             }
             catch (Exception ex)
             {
@@ -85,6 +83,7 @@ namespace Web.API.Controllers
                     $"Erro ao tentar adicionar eventos. Erro: {ex.Message}");
             }
         }
+
         [HttpPut("{id}")]
         [AllowAnonymous]
         public async Task<IActionResult> Put(Guid id, CategoriaDto model)
@@ -94,7 +93,7 @@ namespace Web.API.Controllers
                 var evento = await _categoriaService.UpdateCategoria(id, model);
                 if (evento == null) return NoContent();
 
-                return Ok(evento);
+                return Ok(evento); 
             }
             catch (Exception ex)
             {

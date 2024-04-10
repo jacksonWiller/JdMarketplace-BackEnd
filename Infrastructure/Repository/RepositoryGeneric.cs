@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -30,9 +31,9 @@ namespace Infrastructure.Repository.Gererics
             _dataContext.Set<T>().Remove(Objeto);
             await _dataContext.SaveChangesAsync();
         }
-        public async Task<T> GetEntityById(int Id)
+        public async Task<T> GetEntityById(Guid id)
         {
-            return await _dataContext.Set<T>().FindAsync(Id);
+            return await _dataContext.Set<T>().FindAsync(id);
         }
 
         public async Task<List<T>> List()

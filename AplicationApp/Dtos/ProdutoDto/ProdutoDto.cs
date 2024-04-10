@@ -39,7 +39,7 @@ namespace AplicationApp.Dtos
         public bool Estado { get; set; }
         public DateTime DataCadastro { get; set; }
         public DateTime DataAlteracao { get; set; }
-        public virtual ICollection<ProdutosCategoriasDto> ProdutosCategorias { get; set; }
+        public List<CategoriaDto> Categorias { get; set; }
 
     }
 }

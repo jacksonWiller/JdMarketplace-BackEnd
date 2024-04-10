@@ -32,7 +32,7 @@ namespace AplicationApp
 
                 if (await _repositoryGeneric.SaveChangesAsync())
                 {
-                    var categoriaRetorno = await _repositoryCategoria.GetCategoriasAsyncById(categoria.Id);
+                    var categoriaRetorno = await _repositoryCategoria.GetCategoriaAsyncById(categoria.Id);
 
                     return _mapper.Map<CategoriaDto>(categoriaRetorno);
                 }
@@ -48,18 +48,17 @@ namespace AplicationApp
         {
             try
             {   
-                var categoria = await _repositoryCategoria.GetCategoriasAsyncById(categoriaId);
+                var categoria = await _repositoryCategoria.GetCategoriaAsyncById(categoriaId);
                 if (categoria == null) return null;
 
-                model.Id = categoria.Id;
-
                 _mapper.Map(model, categoria);
+                categoria.Id = categoriaId;
 
                 await _repositoryGeneric.Update(categoria);                
 
                 if (await _repositoryGeneric.SaveChangesAsync())
                 {
-                    var eventoRetorno = await _repositoryCategoria.GetCategoriasAsyncById(categoria.Id);
+                    var eventoRetorno = await _repositoryCategoria.GetCategoriaAsyncById(categoria.Id);
 
                     return _mapper.Map<CategoriaDto>(eventoRetorno);
                 }
@@ -74,7 +73,7 @@ namespace AplicationApp
         {
             try
             {
-                var categoria = await _repositoryCategoria.GetCategoriasAsyncById(categoriaId);
+                var categoria = await _repositoryCategoria.GetCategoriaAsyncById(categoriaId);
                 if (categoria == null) throw new Exception("Evento para delete não encontrado.");
 
                     await _repositoryGeneric.Delete(categoria);
@@ -122,7 +121,7 @@ namespace AplicationApp
         {
             try
             {
-                var categoria = await _repositoryCategoria.GetCategoriasAsyncById(categoriaId);
+                var categoria = await _repositoryCategoria.GetCategoriaAsyncById(categoriaId);
                 if (categoria == null) return null;
 
                 var resultado = _mapper.Map<CategoriaDto>(categoria);

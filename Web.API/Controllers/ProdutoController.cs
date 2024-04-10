@@ -8,6 +8,9 @@ using AplicationApp.Interfaces;
 using AplicationApp.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using Web.API.Models.Produto;
+using Domain.Entity;
+using System.Collections.Generic;
 
 namespace Web.Api.Controllers
 {
@@ -75,24 +78,27 @@ namespace Web.Api.Controllers
                     $"Falha ao tentar obter o produto por nome. Erro: {exeption.Message}");
             }
         }
-        
+
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Post([FromForm] ProdutoDto produto)
+        public async Task<IActionResult> CriarProduto([FromBody] CriarProdutoViewModel criarProdutoViewModel)
         {
             try
             {
-                // var produto = Request.Form.Files[0]; 
-                // var file  = Request.Form.Files[0];
-                // Console.Write("||||||||||||||||||||||||||||||||||||||||||");
-                //  Console.WriteLine(produto.Imagem);
-                //  Console.WriteLine(file);
+                
 
-                if(produto.Imagem != null){
-                    produto.ImagemURL = await SaveImage(produto.Imagem);
-                }
+                var produtoDto = new ProdutoDto
+                {
+                    Nome = criarProdutoViewModel.Nome ?? string.Empty,
+                    Descricao = criarProdutoViewModel.Descricao ?? string.Empty,
+                    Observacao = criarProdutoViewModel.Observacao ?? string.Empty,
+                    Valor = criarProdutoViewModel.Valor,
+                    QuantidadeEmEstoque = criarProdutoViewModel.QuantidadeEmEstoque,
+                    Categorias = criarProdutoViewModel.IdsCategoria?.Select(id => new CategoriaDto { Id = id })?.ToList() ?? new List<CategoriaDto>()
 
-                var retorno = await _produtoService.AddProduto(produto);
+                };
+
+                var retorno = await _produtoService.AddProduto(produtoDto);
                 return Ok(retorno);
             }
             catch (Exception exeption)
@@ -101,6 +107,32 @@ namespace Web.Api.Controllers
                     $"Falha ao tentar adicionar o produto. Erro: {exeption.Message}");
             }
         }
+
+        //[HttpPost]
+        //[AllowAnonymous]
+        //public async Task<IActionResult> Post([FromForm] CriarProdutoViewModel criarProdutoViewModel)
+        //{
+        //    try
+        //    {
+        //        // var produto = Request.Form.Files[0]; 
+        //        // var file  = Request.Form.Files[0];
+        //        // Console.Write("||||||||||||||||||||||||||||||||||||||||||");
+        //        //  Console.WriteLine(produto.Imagem);
+        //        //  Console.WriteLine(file);
+
+        //        if(produto.Imagem != null){
+        //            produto.ImagemURL = await SaveImage(produto.Imagem);
+        //        }
+
+        //        var retorno = await _produtoService.AddProduto(produto);
+        //        return Ok(retorno);
+        //    }
+        //    catch (Exception exeption)
+        //    {
+        //        return this.StatusCode(StatusCodes.Status500InternalServerError,
+        //            $"Falha ao tentar adicionar o produto. Erro: {exeption.Message}");
+        //    }
+        //}
 
         [HttpPost("add-image")]
         [AllowAnonymous]

@@ -29,15 +29,11 @@ namespace Web.API.Controllers
     // private readonly IMapper _mapper;
 
     public AccountController(
-                            // IConfiguration config,
                           UserManager<User> userManager,
                           SignInManager<User> signInManager
-                        //   IMapper mapper
                         )
     {
       _signInManager = signInManager;
-    //   _mapper = mapper;
-    //   _config = config;
       _userManager = userManager;
     }
 
