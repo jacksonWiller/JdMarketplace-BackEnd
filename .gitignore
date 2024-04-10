@@ -308,8 +308,6 @@ __pycache__/
 # Tabs Studio
 *.tss
 
-# Telerik's JustMock configuration file
-*.jmconfig
 
 # BizTalk build output
 *.btp.cs
@@ -349,7 +347,6 @@ FodyWeavers.xsd
 
 # VS Code settings and debug files
 .vscode/
-launchSettings.json
 
 # Local History for Visual Studio
 .localhistory/
