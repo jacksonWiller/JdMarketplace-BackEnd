@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34202.233
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.API", "Web.API\Web.API.csproj", "{3ED88AF1-1615-40BC-8D5D-F8D4027497AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JdMarketplace.Api", "Web.API\JdMarketplace.Api.csproj", "{3ED88AF1-1615-40BC-8D5D-F8D4027497AE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{329C43AD-50F2-4090-9591-603CEB3EB3E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JdMarketplace.Infra", "Infrastructure\JdMarketplace.Infra.csproj", "{329C43AD-50F2-4090-9591-603CEB3EB3E7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{A66E5577-1A7B-40ED-BBBA-235D02521D27}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JdMarketplace.Dominio", "Domain\JdMarketplace.Dominio.csproj", "{A66E5577-1A7B-40ED-BBBA-235D02521D27}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AplicationApp", "AplicationApp\AplicationApp.csproj", "{4CE91A11-29E9-41B2-860C-EC6DFB989FB7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JdMarketplace.App", "AplicationApp\JdMarketplace.App.csproj", "{4CE91A11-29E9-41B2-860C-EC6DFB989FB7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

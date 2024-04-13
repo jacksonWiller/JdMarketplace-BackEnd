@@ -45,7 +45,6 @@ namespace Web.API
             services.AddApiConfiguration();
 
             services.AddSwaggerConfiguration();
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddDependencyInjectionConfiguration();
             services.AddCors();

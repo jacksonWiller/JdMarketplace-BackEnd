@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using Domain.Entity;
-using Microsoft.AspNetCore.Http;
 
 namespace AplicationApp.Dtos
 {
@@ -33,7 +32,6 @@ namespace AplicationApp.Dtos
         // [Required(ErrorMessage = "O campo {0} é obrigatório")]   
         // [Range(1, 200, ErrorMessage = "{0} não pode ser menor que 1 e maior que 120.000")]
 
-        public IFormFile Imagem { get; set; }
         public string ImagemURL { get; set; }
         public int QuantidadeEmEstoque { get; set; }
         public bool Estado { get; set; }
