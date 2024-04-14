@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JdMarketplace.Dominio", "Do
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JdMarketplace.App", "AplicationApp\JdMarketplace.App.csproj", "{4CE91A11-29E9-41B2-860C-EC6DFB989FB7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JdMarketplace.Core", "JdMarketplace.Core\JdMarketplace.Core.csproj", "{12F1539E-D1CF-4557-96E0-8FAC0B0BB534}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{4CE91A11-29E9-41B2-860C-EC6DFB989FB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CE91A11-29E9-41B2-860C-EC6DFB989FB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CE91A11-29E9-41B2-860C-EC6DFB989FB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12F1539E-D1CF-4557-96E0-8FAC0B0BB534}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12F1539E-D1CF-4557-96E0-8FAC0B0BB534}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12F1539E-D1CF-4557-96E0-8FAC0B0BB534}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12F1539E-D1CF-4557-96E0-8FAC0B0BB534}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
