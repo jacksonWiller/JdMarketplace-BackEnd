@@ -21,6 +21,24 @@ namespace Domain.Entity
         public int QuantidadeEmEstoque { get; protected set; }
         public virtual ICollection<ProdutosCategorias> ProdutosCategorias { get; protected set; }
 
+        public static Produto Create(string nome, string descricao, string observacao, decimal valor,
+                                        int quantidadeEmEstoque)
+        {
+            Produto produto = new Produto()
+            {
+                Nome = nome,
+                Descricao = descricao,
+                Observacao = observacao,
+                Valor = valor,
+                QuantidadeEmEstoque = quantidadeEmEstoque,
+                Estado = true,
+                DataDeCriacao = DateTime.Now,
+                DataDeAlteracao = DateTime.Now,
+            };
+
+            return produto;
+        }
+
         public static Produto Create(string nome, string descricao, string observacao, decimal valor, 
                                         int quantidadeEmEstoque, string imagemURL,
                                         ICollection<ProdutosCategorias> produtosCategorias)

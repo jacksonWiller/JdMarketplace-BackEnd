@@ -4,6 +4,9 @@ using Domain.Interfaces;
 using Infrastructure.Repository;
 using Infrastructure.Repository.Gererics;
 using Infrastructure.Repository.Repositories;
+using JdMarketplace.App.Commands;
+using JdMarketplace.App.Queries;
+using JdMarketplace.App.Queries.Catalogo.ObterProdutoPorId;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Web.API.Configurations
@@ -19,6 +22,10 @@ namespace Web.API.Configurations
             services.AddScoped<IProduto, RepositoryProduto>();
             services.AddScoped<ICategoria, RepositoryCategoria>();
             services.AddScoped<ICompra, RepositoryCompra>();
+
+            services.AddTransient<ICriarProdutoHandler, CriarProdutoHandler>();
+            services.AddTransient<IObterProdutoPorIdHandler, ObterProdutoPorIdHandler>();
+            services.AddTransient<IObterProdutosHandler, ObterProdutosHandler>();
         }
     }
 }

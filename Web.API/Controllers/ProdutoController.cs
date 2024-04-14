@@ -11,9 +11,14 @@ using Microsoft.AspNetCore.Hosting;
 using Web.API.Models.Produto;
 using Domain.Entity;
 using System.Collections.Generic;
+using Web.API.Configurations;
+using JdMarketplace.App.Commands;
+using JdMarketplace.App.Queries.Catalogo.ObterProdutoPorId;
+using JdMarketplace.App.Queries;
 
 namespace Web.Api.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
     public class ProdutoController : ControllerBase
@@ -26,6 +31,39 @@ namespace Web.Api.Controllers
         {
             _produtoService = produtoService;
             _hostEnviroment = IWebHostEnviroment;
+        }
+
+        [HttpPost]
+        [Route("Criar")]
+        public IActionResult CriarProduto(
+                       [FromServices] ICriarProdutoHandler handler,
+                       [FromBody] CriarProdutoRequest command
+                   )
+        {
+            var response = handler.Handle(command);
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("ObterPorId")]
+        public IActionResult ObterProdutoPorId(
+            [FromServices] IObterProdutoPorIdHandler handler,
+            [FromQuery] ObterProdutoPorIdRequest command
+        )
+        {
+            var result = handler.Handle(command);
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("ObterProdutos")]
+        public async Task<IActionResult> GetById(
+            [FromServices] IObterProdutosHandler handler,
+            [FromQuery] ObterProdutosRequest command
+        )
+        {
+            var result = await handler.Handle(command);
+            return Ok(result.Produtos);
         }
 
         [HttpGet]

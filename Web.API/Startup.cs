@@ -1,4 +1,6 @@
 
+using JdMarketplace.App.Commands;
+using JdMarketplace.App.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ProAgil.Repository;
 using System;
+using Web.Api.Controllers;
 using Web.API.Configuration;
 using Web.API.Configurations;
 
@@ -45,6 +48,8 @@ namespace Web.API
             services.AddApiConfiguration();
 
             services.AddSwaggerConfiguration();
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddDependencyInjectionConfiguration();
             services.AddCors();
