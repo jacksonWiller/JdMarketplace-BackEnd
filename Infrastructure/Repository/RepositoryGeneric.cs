@@ -10,8 +10,8 @@ namespace Infrastructure.Repository.Gererics
 {
     public class RepositoryGeneric<T>  : IGeneric<T> where T : class
     {
-        private readonly DataContext _dataContext;
-        public RepositoryGeneric (DataContext dataContext)
+        private readonly CatalogoContext _dataContext;
+        public RepositoryGeneric (CatalogoContext dataContext)
         {
             _dataContext = dataContext;
             // _dataContext.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;

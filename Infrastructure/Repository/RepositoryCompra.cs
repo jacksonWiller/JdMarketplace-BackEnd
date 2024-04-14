@@ -9,9 +9,9 @@ namespace Infrastructure.Repository
 {
     public class RepositoryCompra : ICompra
     {
-        public readonly DataContext _dataContext;
+        public readonly CatalogoContext _dataContext;
 
-        public RepositoryCompra(DataContext dataContext)
+        public RepositoryCompra(CatalogoContext dataContext)
         {
             _dataContext = dataContext;
         }

@@ -12,9 +12,9 @@ namespace Infrastructure.Repository.Repositories
     public class RepositoryCategoria : ICategoria
     {
         
-        public readonly DataContext _dataContext;
+        public readonly CatalogoContext _dataContext;
         
-        public RepositoryCategoria(DataContext dataContext)
+        public RepositoryCategoria(CatalogoContext dataContext)
         {
             _dataContext = dataContext;
         }

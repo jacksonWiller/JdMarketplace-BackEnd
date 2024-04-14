@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using JdMarketplace.Infra.ContextosDados;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -6,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using Web.API.Data;
 using Web.API.Extensions;
 
 namespace Web.API.Configuration
@@ -16,14 +16,14 @@ namespace Web.API.Configuration
         public static IServiceCollection AddIdentityConfiguration(this IServiceCollection services,
             IConfiguration configuration)
         {
-            services.AddDbContext<ApplicationDbContext>(
+            services.AddDbContext<CatalogoContexto>(
                 options => options.UseSqlite(configuration.GetConnectionString("IdentityConnection"))
             );
 
             services.AddDefaultIdentity<IdentityUser>()
                 .AddRoles<IdentityRole>()
                 .AddErrorDescriber<IdentityMensagensPortugues>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddEntityFrameworkStores<CatalogoContexto>()
                 .AddDefaultTokenProviders();
 
 

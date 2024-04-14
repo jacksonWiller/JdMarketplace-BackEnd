@@ -13,9 +13,9 @@ namespace Infrastructure.Repository.Repositories
 {
     public class RepositoryProduto : IProduto
     {
-        public readonly DataContext _dataContext;
+        public readonly CatalogoContext _dataContext;
 
-        public RepositoryProduto(DataContext dataContext)
+        public RepositoryProduto(CatalogoContext dataContext)
         {
             _dataContext = dataContext;
         }

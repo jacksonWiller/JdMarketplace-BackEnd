@@ -22,6 +22,12 @@ dotnet ef --startup-project ../Web.API/Web.API.csproj migrations add init;
 echo "Criando Banco de dados"
 dotnet ef --startup-project ../Web.API/Web.API.csproj database update;
 
+dotnet ef --startup-project ../Web.API/JdMarketplace.Api.csproj migrations add init --context CatalogoContext
+
+dotnet ef --startup-project ../Web.API/JdMarketplace.Api.csproj migrations add init --context CatalogoContext -o CatalogoMigrations
+
+ dotnet ef --startup-project ../Web.API/JdMarketplace.Api.csproj database update --context CatalogoContext
+
 
 
 

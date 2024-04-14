@@ -13,9 +13,9 @@ namespace JdMarketplace.App.Commands
 {
     public class CriarProdutoHandler : ICriarProdutoHandler
     {
-        public readonly DataContext _dataContext;
+        public readonly CatalogoContext _dataContext;
 
-        public CriarProdutoHandler(DataContext dataContext)
+        public CriarProdutoHandler(CatalogoContext dataContext)
         {
             _dataContext = dataContext;
         }

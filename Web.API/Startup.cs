@@ -39,7 +39,7 @@ namespace Web.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(
+            services.AddDbContext<CatalogoContext>(
                 context => context.UseSqlite(Configuration.GetConnectionString("Default"))
             );
 

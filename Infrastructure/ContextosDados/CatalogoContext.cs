@@ -7,10 +7,9 @@ using System;
 
 namespace ProAgil.Repository
 {
-    public class DataContext : IdentityDbContext<User, Role, Guid>
+    public class CatalogoContext : DbContext
     {
-        public DataContext(DbContextOptions<DataContext> options) : base (options) {}
-    
+        public CatalogoContext(DbContextOptions<CatalogoContext> options) : base (options) {}
         public DbSet<Produto> Produtos {get;set;}
         public DbSet<Categoria> Categorias {get;set;}
         public DbSet<ProdutosCategorias> ProdutosCategorias {get;set;}
@@ -21,14 +20,16 @@ namespace ProAgil.Repository
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Produto>()
+                 .ToTable("Catalogo_Produto");
+
             modelBuilder.Entity<ProdutosCategorias>()
+                .ToTable("Catalogo_Categoria")
                 .HasKey(PC => new {PC.ProdutoId, PC.CategoriaId});
 
-
             modelBuilder.Entity<ItemPedido>()
+                .ToTable("Catalogo_Itens")
                 .HasKey(PC => new {PC.ProdutoId, PC.CompraId});
-            
         }
-    
     }
 }

@@ -15,9 +15,9 @@ namespace JdMarketplace.App.Queries.Catalogo.ObterProdutoPorId
 {
     public class ObterProdutoPorIdHandler : IObterProdutoPorIdHandler
     {
-        public readonly DataContext _dataContext;
+        public readonly CatalogoContext _dataContext;
 
-        public ObterProdutoPorIdHandler(DataContext dataContext)
+        public ObterProdutoPorIdHandler(CatalogoContext dataContext)
         {
             _dataContext = dataContext;
         }

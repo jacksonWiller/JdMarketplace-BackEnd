@@ -9,9 +9,9 @@ namespace JdMarketplace.App.Queries
 {
     public class ObterProdutosHandler : IObterProdutosHandler
     {
-        public readonly DataContext _dataContext;
+        public readonly CatalogoContext _dataContext;
 
-        public ObterProdutosHandler(DataContext dataContext)
+        public ObterProdutosHandler(CatalogoContext dataContext)
         {
             _dataContext = dataContext;
         }
