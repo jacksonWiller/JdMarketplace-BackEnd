@@ -1,15 +1,8 @@
-﻿using AplicationApp.Dtos;
-using Domain.Entity;
-using Domain.Interfaces;
-using Infrastructure.Repository.Repositories;
+﻿using Domain.Entity;
 using ProAgil.Repository;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace JdMarketplace.App.Commands
+namespace JdMarketplace.App.Commands.Catalogo.CriarProduto
 {
     public class CriarProdutoHandler : ICriarProdutoHandler
     {
@@ -31,15 +24,15 @@ namespace JdMarketplace.App.Commands
                 _dataContext.Add(produto);
                 var save = _dataContext.SaveChangesAsync();
 
-  
-                    return new CriarProdutoResponse
-                    {
-                        Id = produto.Id,
-                        Nome = produto.Nome,
-                        Descricao = produto.Descricao,
-                        
-                    };
-             
+
+                return new CriarProdutoResponse
+                {
+                    Id = produto.Id,
+                    Nome = produto.Nome,
+                    Descricao = produto.Descricao,
+
+                };
+
             }
             catch (Exception ex)
             {

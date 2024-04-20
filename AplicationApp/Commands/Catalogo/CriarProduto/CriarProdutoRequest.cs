@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JdMarketplace.App.Commands
+namespace JdMarketplace.App.Commands.Catalogo.CriarProduto
 {
     public class CriarProdutoRequest
     {
