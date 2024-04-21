@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace JdMarketplace.App.Commands.Catalogo.CriarProduto
+namespace JdMarketplace.App.Commands.Catalogo.EditarProduto
 {
-    public class CriarProdutoRequest : IRequest<Result<CriarProdutoResponse>>
+    public class EditarProdutoRequest : IRequest<Result<EditarProdutoResponse>>
     {
+        public Guid Id { get; set; }
         public string Nome { get; set; }
         public string Descricao { get; set; }
         public string Observacao { get; set; }

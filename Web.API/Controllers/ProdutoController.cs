@@ -7,6 +7,14 @@ using Microsoft.AspNetCore.Hosting;
 using JdMarketplace.App.Queries.Catalogo.ObterProdutoPorId;
 using JdMarketplace.App.Queries;
 using JdMarketplace.App.Commands.Catalogo.CriarProduto;
+using Shop.PublicApi.Models;
+using System.ComponentModel.DataAnnotations;
+using System.Net.Mime;
+using Ardalis.Result;
+using MediatR;
+using JdMarketplace.Api.Extensions;
+using Microsoft.AspNetCore.Components.Forms;
+using JdMarketplace.App.Commands.Catalogo.EditarProduto;
 
 namespace Web.Api.Controllers
 {
@@ -17,44 +25,60 @@ namespace Web.Api.Controllers
     {
 
         private readonly IWebHostEnvironment _hostEnviroment;
-        
-        public ProdutoController(IWebHostEnvironment IWebHostEnviroment)
+        private readonly IMediator _mediator;
+
+        public ProdutoController(IWebHostEnvironment IWebHostEnviroment, IMediator mediator)
         {
             _hostEnviroment = IWebHostEnviroment;
+            _mediator = mediator;
         }
+
+        //[HttpPost]
+        //[Consumes(MediaTypeNames.Application.Json)]
+        //[Produces(MediaTypeNames.Application.Json)]
+        //[ProducesResponseType(typeof(ApiResponse<CriarProdutoResponse>), StatusCodes.Status200OK)]
+        //[ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+        //[ProducesResponseType(typeof(ApiResponse), StatusCodes.Status500InternalServerError)]
+        //public async Task<IActionResult> Create([FromBody][Required] CreateCustomerCommand command) =>
+        //(await _mediator.Send(command)).ToActionResult();
 
         [HttpPost]
         [Route("Criar")]
-        public IActionResult CriarProduto(
-                       [FromServices] ICriarProdutoHandler handler,
+        [Consumes(MediaTypeNames.Application.Json)]
+        [Produces(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(typeof(ApiResponse<CriarProdutoResponse>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status500InternalServerError)]
+
+        public async Task<IActionResult> CriarProduto(
                        [FromBody] CriarProdutoRequest command
                    )
         {
-            var response = handler.Handle(command);
-            return Ok(response);
+            var response = await _mediator.Send(command);
+            return response.ToActionResult();
         }
 
-        [HttpGet]
-        [Route("ObterPorId")]
-        public IActionResult ObterProdutoPorId(
-            [FromServices] IObterProdutoPorIdHandler handler,
-            [FromQuery] ObterProdutoPorIdRequest command
-        )
-        {
-            var result = handler.Handle(command);
-            return Ok(result);
-        }
+        //[HttpGet]
+        //[Route("ObterPorId")]
+        //public IActionResult ObterProdutoPorId(
+        //    [FromServices] IObterProdutoPorIdHandler handler,
+        //    [FromQuery] ObterProdutoPorIdRequest command
+        //)
+        //{
+        //    var result = handler.Handle(command);
+        //    return Ok(result);
+        //}
 
-        [HttpGet]
-        [Route("ObterProdutos")]
-        public async Task<IActionResult> GetById(
-            [FromServices] IObterProdutosHandler handler,
-            [FromQuery] ObterProdutosRequest command
-        )
-        {
-            var result = await handler.Handle(command);
-            return Ok(result.Produtos);
-        }
+        //[HttpGet]
+        //[Route("ObterProdutos")]
+        //public async Task<IActionResult> GetById(
+        //    [FromServices] IObterProdutosHandler handler,
+        //    [FromQuery] ObterProdutosRequest command
+        //)
+        //{
+        //    var result = await handler.Handle(command);
+        //    return Ok(result.Produtos);
+        //}
 
 
         //[HttpDelete("{id}")]

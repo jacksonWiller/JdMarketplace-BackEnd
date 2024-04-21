@@ -18,10 +18,6 @@ namespace Web.API.Configurations
             services.AddScoped<IProduto, RepositoryProduto>();
             services.AddScoped<ICategoria, RepositoryCategoria>();
             services.AddScoped<ICompra, RepositoryCompra>();
-
-            services.AddTransient<ICriarProdutoHandler, CriarProdutoHandler>();
-            services.AddTransient<IObterProdutoPorIdHandler, ObterProdutoPorIdHandler>();
-            services.AddTransient<IObterProdutosHandler, ObterProdutosHandler>();
         }
     }
 }

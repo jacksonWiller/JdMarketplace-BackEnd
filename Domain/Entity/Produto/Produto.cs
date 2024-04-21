@@ -21,7 +21,16 @@ namespace Domain.Entity
         public int QuantidadeEmEstoque { get; protected set; }
         public virtual ICollection<ProdutosCategorias> ProdutosCategorias { get; protected set; }
 
-        public static Produto Create(string nome, string descricao, string observacao, decimal valor,
+        public void EditarProduto(string nome, string descricao, string observacao, decimal valor, int quantidadeEmEstoque)
+        {
+            Nome = nome;
+            Descricao = descricao;
+            Observacao = observacao;
+            Valor = valor;
+            QuantidadeEmEstoque = quantidadeEmEstoque;
+        }
+
+        public static Produto CriarProduto(string nome, string descricao, string observacao, decimal valor,
                                         int quantidadeEmEstoque)
         {
             Produto produto = new Produto()
@@ -39,13 +48,13 @@ namespace Domain.Entity
             return produto;
         }
 
-        public static Produto Create(string nome, string descricao, string observacao, decimal valor, 
+        public static Produto CriarProduto(string nome, string descricao, string observacao, decimal valor, 
                                         int quantidadeEmEstoque, string imagemURL,
                                         ICollection<ProdutosCategorias> produtosCategorias)
         {
-            return Create(Guid.NewGuid(), nome, descricao, observacao, valor, quantidadeEmEstoque, imagemURL, produtosCategorias);
+            return CriarProduto(Guid.NewGuid(), nome, descricao, observacao, valor, quantidadeEmEstoque, imagemURL, produtosCategorias);
         }
-        public static Produto Create(Guid id, string nome, string descricao, string observacao, 
+        public static Produto CriarProduto(Guid id, string nome, string descricao, string observacao, 
                                         decimal valor, int quantidadeEmEstoque, string imagemURL,
                                         ICollection<ProdutosCategorias> produtosCategorias)
         {

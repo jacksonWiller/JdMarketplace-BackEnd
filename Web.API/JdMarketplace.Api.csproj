@@ -9,6 +9,8 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="MediatR" Version="11.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.0" />
@@ -31,6 +33,7 @@
     <ProjectReference Include="..\Domain\JdMarketplace.Dominio.csproj" />
     <ProjectReference Include="..\Infrastructure\JdMarketplace.Infra.csproj" />
     <ProjectReference Include="..\AplicationApp\JdMarketplace.App.csproj" />
+    <ProjectReference Include="..\JdMarketplace.Core\JdMarketplace.Core.csproj" />
   </ItemGroup>
 
 </Project>

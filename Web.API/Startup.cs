@@ -1,6 +1,10 @@
 
+using FluentValidation;
 using JdMarketplace.App.Commands;
+using JdMarketplace.App.Commands.Catalogo.CriarProduto;
+using JdMarketplace.App.Commands.Catalogo.EditarProduto;
 using JdMarketplace.App.Queries;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -14,6 +18,7 @@ using Microsoft.Extensions.Hosting;
 using ProAgil.Repository;
 using System;
 using System.IO;
+using System.Reflection;
 using Web.Api.Controllers;
 using Web.API.Configuration;
 using Web.API.Configurations;
@@ -46,13 +51,22 @@ namespace Web.API
                 context => context.UseSqlite(Configuration.GetConnectionString("Default"))
             );
 
+            //services.AddMediatR(typeof(CriarProdutoHandler).Assembly);
+            //services.AddMediatR(typeof(EditarProdutoHandler).Assembly);
+
+            services.AddMediatR(typeof(CriarProdutoHandler).Assembly, 
+                typeof(EditarProdutoHandler).Assembly);
+
+            services.AddTransient<IValidator<CriarProdutoRequest>, CriarProdutoValidator>();
+            services.AddTransient<IValidator<EditarProdutoRequest>, EditarProdutoValidator>();
+
+            services.AddValidatorsFromAssemblyContaining<CriarProdutoValidator>();
+
             services.AddIdentityConfiguration(Configuration);
 
             services.AddApiConfiguration();
 
             services.AddSwaggerConfiguration();
-
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddDependencyInjectionConfiguration();
             services.AddCors();
