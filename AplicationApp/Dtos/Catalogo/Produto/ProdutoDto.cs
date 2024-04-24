@@ -1,11 +1,12 @@
-﻿using JdMarketplace.App.Dtos.Catalogo.Produto;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
+using Domain.Entity;
 
-namespace JdMarketplace.App.Commands.Catalogo.CriarProduto
+namespace JdMarketplace.App.Dtos.Catalogo.Produto
 {
-    public class CriarProdutoResponse
+    public class ProdutoDto
     {
         public Guid Id { get; set; }
         public string Nome { get; set; }

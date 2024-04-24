@@ -1,4 +1,4 @@
-﻿using AplicationApp.Dtos;
+﻿using JdMarketplace.App.Dtos.Catalogo.Produto;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

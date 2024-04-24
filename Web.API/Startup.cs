@@ -3,7 +3,7 @@ using FluentValidation;
 using JdMarketplace.App.Commands;
 using JdMarketplace.App.Commands.Catalogo.CriarProduto;
 using JdMarketplace.App.Commands.Catalogo.EditarProduto;
-using JdMarketplace.App.Queries;
+using JdMarketplace.App.Queries.Catalogo.ObterProdutos;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -54,8 +54,7 @@ namespace Web.API
             //services.AddMediatR(typeof(CriarProdutoHandler).Assembly);
             //services.AddMediatR(typeof(EditarProdutoHandler).Assembly);
 
-            services.AddMediatR(typeof(CriarProdutoHandler).Assembly, 
-                typeof(EditarProdutoHandler).Assembly);
+            services.AddMediatR(typeof(CriarProdutoHandler).Assembly);
 
             services.AddTransient<IValidator<CriarProdutoRequest>, CriarProdutoValidator>();
             services.AddTransient<IValidator<EditarProdutoRequest>, EditarProdutoValidator>();

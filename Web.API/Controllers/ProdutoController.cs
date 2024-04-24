@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using JdMarketplace.App.Queries.Catalogo.ObterProdutoPorId;
-using JdMarketplace.App.Queries;
 using JdMarketplace.App.Commands.Catalogo.CriarProduto;
 using Shop.PublicApi.Models;
 using System.ComponentModel.DataAnnotations;
@@ -15,11 +14,16 @@ using MediatR;
 using JdMarketplace.Api.Extensions;
 using Microsoft.AspNetCore.Components.Forms;
 using JdMarketplace.App.Commands.Catalogo.EditarProduto;
+using JdMarketplace.App.Dtos.Catalogo.Produto;
+using System.Collections.Generic;
+using System.Linq;
+using JdMarketplace.App.Queries.Catalogo.ObterProdutos;
+using JdMarketplace.App.Queries.Catalogo.ObterProdutoDetalhe;
 
 namespace Web.Api.Controllers
 {
 
-    [Route("api/[controller]")]
+    [Route("api/[controller]/")]
     [ApiController]
     public class ProdutoController : ControllerBase
     {
@@ -32,15 +36,6 @@ namespace Web.Api.Controllers
             _hostEnviroment = IWebHostEnviroment;
             _mediator = mediator;
         }
-
-        //[HttpPost]
-        //[Consumes(MediaTypeNames.Application.Json)]
-        //[Produces(MediaTypeNames.Application.Json)]
-        //[ProducesResponseType(typeof(ApiResponse<CriarProdutoResponse>), StatusCodes.Status200OK)]
-        //[ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
-        //[ProducesResponseType(typeof(ApiResponse), StatusCodes.Status500InternalServerError)]
-        //public async Task<IActionResult> Create([FromBody][Required] CreateCustomerCommand command) =>
-        //(await _mediator.Send(command)).ToActionResult();
 
         [HttpPost]
         [Route("Criar")]
@@ -58,48 +53,68 @@ namespace Web.Api.Controllers
             return response.ToActionResult();
         }
 
-        //[HttpGet]
-        //[Route("ObterPorId")]
-        //public IActionResult ObterProdutoPorId(
-        //    [FromServices] IObterProdutoPorIdHandler handler,
-        //    [FromQuery] ObterProdutoPorIdRequest command
-        //)
-        //{
-        //    var result = handler.Handle(command);
-        //    return Ok(result);
-        //}
+        [HttpPut]
+        [Route("Editar")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [Produces(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(typeof(ApiResponse<EditarProdutoResponse>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status500InternalServerError)]
 
-        //[HttpGet]
-        //[Route("ObterProdutos")]
-        //public async Task<IActionResult> GetById(
-        //    [FromServices] IObterProdutosHandler handler,
-        //    [FromQuery] ObterProdutosRequest command
-        //)
-        //{
-        //    var result = await handler.Handle(command);
-        //    return Ok(result.Produtos);
-        //}
+        public async Task<IActionResult> EditarProduto(
+                       [FromBody] EditarProdutoRequest command
+                   )
+        {
+            var response = await _mediator.Send(command);
+            return response.ToActionResult();
+        }
 
+        [HttpGet]
+        [Route("ObterTodos")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [Produces(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(typeof(ApiResponse<ObterProdutosResponse>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status500InternalServerError)]
 
-        //[HttpDelete("{id}")]
-        //[AllowAnonymous]
-        //public async Task<IActionResult> Delete(Guid id)
-        //{
-        //    try
-        //    {
-        //        var produto = await _produtoService.GetProdutoAsyncById(id);
-        //        if (produto == null) return NoContent();
+        public async Task<IActionResult> ObterProdutos(
+                       [FromQuery] ObterProdutosRequest command
+        )
+        {
+            var response = await _mediator.Send(command);
+            return response.ToActionResult();
+        }
 
-        //        await _produtoService.DeleteProduto(id);
-        //        return Ok(new { message = "Deletado" });              
-        //            //    : throw new Exception("Ocorreu um problem não específico ao tentar deletar Evento.");
-        //    }
-        //    catch (Exception exeption)
-        //    {
-        //        return this.StatusCode(StatusCodes.Status500InternalServerError,
-        //            $"Falha ao tentar remover o produto. Erro: {exeption.Message}");
-        //    }
-        //}
+        [HttpGet]
+        [Route("ObterProdutoDetalhe")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [Produces(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(typeof(ApiResponse<ObterProdutoDetalheResponse>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status500InternalServerError)]
+
+        public async Task<IActionResult> ObterProdutoDetalhe(
+                       [FromQuery] ObterProdutoDetalheRequest command
+        )
+        {
+            var response = await _mediator.Send(command);
+            return response.ToActionResult();
+        }
+
+        [HttpGet]
+        [Route("ListarOrdenacaoCampos")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [Produces(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(typeof(ApiResponse<IEnumerable<OrdenacaoCamposProdutosDto>>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status500InternalServerError)]
+
+        public IActionResult ListarOrdenacaoCamposProduto()
+        {
+            var campos = Enum.GetNames(typeof(OrdenacaoCamposProdutosDto));
+            var response = Result<IEnumerable<string>>.Success(campos);
+            return Ok(response);
+        }
 
     }
 }

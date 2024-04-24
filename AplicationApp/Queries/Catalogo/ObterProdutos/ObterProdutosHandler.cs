@@ -1,13 +1,21 @@
-﻿using AplicationApp.Dtos;
+﻿using Ardalis.Result;
+using Domain.Entity;
+using JdMarketplace.App.Commands.Catalogo.CriarProduto;
+using JdMarketplace.App.Dtos;
+using JdMarketplace.App.Dtos.Catalogo.Produto;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
 using ProAgil.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
-namespace JdMarketplace.App.Queries
+namespace JdMarketplace.App.Queries.Catalogo.ObterProdutos
 {
-    public class ObterProdutosHandler : IObterProdutosHandler
+    public class ObterProdutosHandler : IRequestHandler<ObterProdutosRequest, Result<ObterProdutosResponse>>
     {
         public readonly CatalogoContext _dataContext;
 
@@ -15,36 +23,63 @@ namespace JdMarketplace.App.Queries
         {
             _dataContext = dataContext;
         }
-
-        public async Task<ObterProdutosResponse> Handle(ObterProdutosRequest query)
+        public async Task<Result<ObterProdutosResponse>> Handle(ObterProdutosRequest request, CancellationToken cancellationToken)
         {
-            try
+
+            IQueryable<Produto> query = _dataContext.Produtos;
+
+            var totalProdutos = query.Count();
+
+            //Aplicar filtro de pesquisa, se necessário
+            if (!string.IsNullOrEmpty(request.Pesquisa))
             {
-                var take = query.Quantidade;
-                var skip = query.Quantidade * query.Pagina;
-                var produtos = _dataContext.Produtos.Skip(skip).Take(take).ToList();
+                var pesquisaLower = request.Pesquisa.ToLower();
+                query = query.Where(p => p.Nome.ToLower().Contains(pesquisaLower) || p.Descricao.ToLower().Contains(pesquisaLower));
+            }
 
-                var lista = new List<ProdutoDto>();
+            // Aplicar ordenação
+            switch (request.OrdenacaoCamposProdutosDto)
+            {
+                case OrdenacaoCamposProdutosDto.Nome:
+                    query = request.Ordenacao == OrdenacaoDto.Crescente ? query.OrderBy(p => p.Nome) : query.OrderByDescending(p => p.Nome);
+                    break;
+                case OrdenacaoCamposProdutosDto.Descricao:
+                    query = request.Ordenacao == OrdenacaoDto.Crescente ? query.OrderBy(p => p.Descricao) : query.OrderByDescending(p => p.Descricao);
+                    break;
+                case OrdenacaoCamposProdutosDto.Valor:
+                    query = request.Ordenacao == OrdenacaoDto.Crescente ? query.OrderBy(p => p.Valor.ToString()) : query.OrderByDescending(p => p.Valor.ToString());
+                    break;
+            }
 
-                foreach ( var produto in produtos )
+            // Aplicar paginação
+            var take = request.QuantidadeItens;
+            var skip = request.QuantidadeItens * (request.Pagina - 1);
+            var produtos = query.Skip(skip).Take(take).ToList();
+
+
+            var lista = new List<ProdutoDto>();
+
+            foreach (var produto in produtos)
+            {
+                var produtoDto = new ProdutoDto()
                 {
-                    var produtoDto = new ProdutoDto()
-                    {
-                        Id = produto.Id,
-                        Nome = produto.Nome,
-                        Valor = produto.Valor
-                    };
-                    lista.Add( produtoDto );
-                }
-
-                var response = new ObterProdutosResponse() { Produtos = lista };
-                return response;
-
+                    Id = produto.Id,
+                    Nome = produto.Nome,
+                    Valor = produto.Valor
+                };
+                lista.Add(produtoDto);
             }
-            catch (Exception ex)
+
+            var response = new ObterProdutosResponse()
             {
-                throw new Exception(ex.Message);
-            }
+                Produtos = lista,
+                Pagina = request.Pagina,
+                Total = totalProdutos,
+            };
+            return Result<ObterProdutosResponse>.Success(
+            response); Result<ObterProdutosResponse>.Success(
+            response);
+
         }
     }
 }
