@@ -3,10 +3,7 @@ using Ardalis.Result.FluentValidation;
 using Domain.Entity;
 using FluentValidation;
 using MediatR;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using ProAgil.Repository;
-using System;
-using System.ComponentModel.DataAnnotations;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -28,6 +25,7 @@ namespace JdMarketplace.App.Commands.Catalogo.CriarProduto
         public async Task<Result<CriarProdutoResponse>> Handle(CriarProdutoRequest request, 
             CancellationToken cancellationToken)
         {
+
             var validationResult = await _validator.ValidateAsync(request);
 
             if (!validationResult.IsValid)

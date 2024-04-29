@@ -21,6 +21,11 @@ namespace Domain.Entity
         public int QuantidadeEmEstoque { get; protected set; }
         public virtual ICollection<ProdutosCategorias> ProdutosCategorias { get; protected set; }
 
+        public void EditarImagens(string imagem)
+        {
+            ImagemURL = imagem.ToString();
+        }
+
         public void EditarProduto(string nome, string descricao, string observacao, decimal valor, int quantidadeEmEstoque)
         {
             Nome = nome;

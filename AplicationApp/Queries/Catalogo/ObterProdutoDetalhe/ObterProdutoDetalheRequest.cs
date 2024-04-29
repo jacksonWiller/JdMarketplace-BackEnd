@@ -15,5 +15,17 @@ namespace JdMarketplace.App.Queries.Catalogo.ObterProdutoDetalhe
     {
         public Guid Id { get; set; }
 
+        public ObterProdutoDetalheRequest(string id)
+        {
+            if (Guid.TryParse(id, out Guid parsedId))
+            {
+                Id = parsedId;
+            }
+            else
+            {
+                throw new ArgumentException("O valor fornecido não é um GUID válido.");
+            }
+        }
+
     }
 }

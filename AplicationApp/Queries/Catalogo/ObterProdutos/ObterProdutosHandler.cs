@@ -65,7 +65,9 @@ namespace JdMarketplace.App.Queries.Catalogo.ObterProdutos
                 {
                     Id = produto.Id,
                     Nome = produto.Nome,
-                    Valor = produto.Valor
+                    Valor = produto.Valor,
+                    ImagemURL = produto.ImagemURL,
+
                 };
                 lista.Add(produtoDto);
             }

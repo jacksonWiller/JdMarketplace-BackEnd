@@ -2,6 +2,7 @@
 using FluentValidation;
 using JdMarketplace.App.Commands;
 using JdMarketplace.App.Commands.Catalogo.CriarProduto;
+using JdMarketplace.App.Commands.Catalogo.EditarImagensProduto;
 using JdMarketplace.App.Commands.Catalogo.EditarProduto;
 using JdMarketplace.App.Queries.Catalogo.ObterProdutos;
 using MediatR;
@@ -33,7 +34,7 @@ namespace Web.API
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(hostEnvironment.ContentRootPath)
-                .AddJsonFile("appsettings.json", true, true)
+                //.AddJsonFile("appsettings.json", true, true)
                 .AddJsonFile($"appsettings.{hostEnvironment.EnvironmentName}.json", true, true)
                 .AddEnvironmentVariables();
 
