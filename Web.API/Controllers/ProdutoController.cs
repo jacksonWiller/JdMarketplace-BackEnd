@@ -89,14 +89,13 @@ namespace Web.Api.Controllers
         }
 
         [HttpGet]
-        [Route("listar-ordenacao-campos")]
+        [Route("listar-ordenacao-campos-produto")]
         [ProducesResponseType(typeof(ApiResponse<IEnumerable<OrdenacaoCamposProdutosDto>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status500InternalServerError)]
         public IActionResult ListarOrdenacaoCamposProduto()
         {
-            var campos = Enum.GetNames(typeof(OrdenacaoCamposProdutosDto));
-            var response = Result<IEnumerable<string>>.Success(campos);
+            var response = Enum.GetNames(typeof(OrdenacaoCamposProdutosDto));
             return Ok(response);
         }
 

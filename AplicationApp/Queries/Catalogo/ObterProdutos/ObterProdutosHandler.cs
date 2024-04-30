@@ -53,7 +53,7 @@ namespace JdMarketplace.App.Queries.Catalogo.ObterProdutos
 
             // Aplicar paginação
             var take = request.QuantidadeItens;
-            var skip = request.QuantidadeItens * (request.Pagina - 1);
+            var skip = request.QuantidadeItens * (request.Pagina);
             var produtos = query.Skip(skip).Take(take).ToList();
 
 
